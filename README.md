@@ -32,6 +32,24 @@ Stay tuned for upcoming enhancements!
 | required | Required |
 | optional | Optional |
 
+## Add Custom Validator:
+
+```go
+validation.AddCustomValidator("test", "%s vard kon", validateRequired)
+
+func validateRequired(value string, errorMsg string) error {
+	if value == "" {
+		fmt.Println(errorMsg)
+		return errors.New(errorMsg)
+	}
+	return nil
+}
+
+
+```
+
+
+
 ## more
 
 I developed this project to deepen my understanding of Go and its capabilities. It's an opportunity for me to explore Go's features and enhance my skills in building more efficient and flexible systems.

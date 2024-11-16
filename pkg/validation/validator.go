@@ -138,7 +138,6 @@ func AddCustomValidator(tagName, message string, fn interface{}) {
 	data[tagName] = map[string]string{
 		"error_msg": message,
 	}
-	fmt.Println(data)
 }
 
 func getMessage(tagName, fieldName string, args ...interface{}) string {

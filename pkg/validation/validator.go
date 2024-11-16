@@ -27,11 +27,14 @@ var validators = map[string]interface{}{
 	"btcaddress": validationIsBtcAddress,
 	//bank
 	"bic": validationIsBIC,
-	//ip
+	//network
 	"ipv4": validationIsIPv4,
 	"ipv6": validationIsIPv6,
+	"ip":   validationIsIP,
+	"mac":  validationIsMacAddress,
+	"uri":  validationIsURI,
+	"url":  validationIsURL,
 	//url
-	"url":   validationIsURL,
 	"email": validateIsEmail,
 }
 

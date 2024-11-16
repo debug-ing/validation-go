@@ -13,6 +13,14 @@ func validationIsURL(value string, errorMsg string) error {
 	return nil
 }
 
+func validationIsURI(value string, errorMsg string) error {
+	uriRegex := `^([a-zA-Z0-9\-.]+)$`
+	if matched, _ := regexp.MatchString(uriRegex, value); !matched {
+		return errors.New(errorMsg)
+	}
+	return nil
+}
+
 func validationIsIPv4(value string, errorMsg string) error {
 	ipRegex := `^(\d{1,3}\.){3}\d{1,3}$`
 	if matched, _ := regexp.MatchString(ipRegex, value); !matched {
@@ -34,6 +42,14 @@ func validationIsIP(value string, errorMsg string) error {
 		if err := validationIsIPv6(value, errorMsg); err != nil {
 			return errors.New(errorMsg)
 		}
+	}
+	return nil
+}
+
+func validationIsMacAddress(value string, errorMsg string) error {
+	macRegex := `^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$`
+	if matched, _ := regexp.MatchString(macRegex, value); !matched {
+		return errors.New(errorMsg)
 	}
 	return nil
 }

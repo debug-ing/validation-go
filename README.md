@@ -6,7 +6,16 @@ This project is currently in development, and additional features will be added 
 Stay tuned for upcoming enhancements!
 
 
-### Network:
+## Strings:
+
+| Tag | Description |
+| - | - |
+| boolean | Boolean |
+| contains | Contains |
+| notcontains | not Contains |
+| numeric | Numeric |
+
+## Network:
 
 | Tag | Description |
 | - | - |
@@ -16,6 +25,12 @@ Stay tuned for upcoming enhancements!
 | mac | Media Access Control Address MAC |
 | uri | URI String |
 | url | URL String |
+
+## Other:
+| Tag | Description |
+| - | - |
+| required | Required |
+| optional | Optional |
 
 ## more
 

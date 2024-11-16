@@ -8,13 +8,21 @@ import (
 )
 
 var validators = map[string]interface{}{
-	"required":  validateRequired,
-	"minlength": validateMinLength,
-	"uuid":      validationIsUUID,
-	"email":     validateIsEmail,
-	"numeric":   validateIsNumber,
-	"between":   validationBetween,
-	"minmax":    validationMinMaxNumber,
+	"required":    validateRequired,
+	"minlength":   validateMinLength,
+	"uuid":        validationIsUUID,
+	"ulid":        validationIsULID,
+	"bic":         validationIsBIC,
+	"ethaddress":  validationIsEthereumAddress,
+	"btcaddress":  validationIsBtcAddress,
+	"mongoID":     validationIsMongoID,
+	"email":       validateIsEmail,
+	"numeric":     validateIsNumber,
+	"boolean":     validateIsBoolean,
+	"contains":    validationIsContains,
+	"notcontains": validationIsNotContains,
+	"between":     validationBetween,
+	"minmax":      validationMinMaxNumber,
 }
 
 var data = map[string]map[string]string{
@@ -38,6 +46,12 @@ var data = map[string]map[string]string{
 	},
 	"minmax": {
 		"error_msg": "%s must be between %d and %d.",
+	},
+	"contains": {
+		"error_msg": "%s must contain.",
+	},
+	"notcontains": {
+		"error_msg": "%s must not contain.",
 	},
 }
 
@@ -73,6 +87,11 @@ func ValidateStruct(s interface{}) error {
 					} else {
 						return fmt.Errorf("invalid parameter for tag %s", tagName)
 					}
+				case func(string, string, string) error:
+					errorMsg := getMessage(tagName, fieldName)
+					if err := validator(fmt.Sprint(value), tagParam, errorMsg); err != nil {
+						return err
+					}
 				case func(string, int, int, string) error:
 					params := strings.Split(tagParam, "-")
 					if len(params) != 2 {
@@ -99,6 +118,14 @@ func ValidateStruct(s interface{}) error {
 		}
 	}
 	return nil
+}
+
+func AddCustomValidator(tagName, message string, fn interface{}) {
+	validators[tagName] = fn
+	data[tagName] = map[string]string{
+		"error_msg": message,
+	}
+	fmt.Println(data)
 }
 
 func getMessage(tagName, fieldName string, args ...interface{}) string {

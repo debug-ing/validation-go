@@ -8,21 +8,31 @@ import (
 )
 
 var validators = map[string]interface{}{
+	//base
 	"required":    validateRequired,
-	"minlength":   validateMinLength,
-	"uuid":        validationIsUUID,
-	"ulid":        validationIsULID,
-	"bic":         validationIsBIC,
-	"ethaddress":  validationIsEthereumAddress,
-	"btcaddress":  validationIsBtcAddress,
-	"mongoID":     validationIsMongoID,
-	"email":       validateIsEmail,
+	"optional":    validateOptional,
 	"numeric":     validateIsNumber,
 	"boolean":     validateIsBoolean,
 	"contains":    validationIsContains,
 	"notcontains": validationIsNotContains,
-	"between":     validationBetween,
 	"minmax":      validationMinMaxNumber,
+	"minlength":   validateMinLength,
+	"between":     validationBetween,
+	//id
+	"uuid":    validationIsUUID,
+	"ulid":    validationIsULID,
+	"mongoID": validationIsMongoID,
+	//wallet address
+	"ethaddress": validationIsEthereumAddress,
+	"btcaddress": validationIsBtcAddress,
+	//bank
+	"bic": validationIsBIC,
+	//ip
+	"ipv4": validationIsIPv4,
+	"ipv6": validationIsIPv6,
+	//url
+	"url":   validationIsURL,
+	"email": validateIsEmail,
 }
 
 var data = map[string]map[string]string{
